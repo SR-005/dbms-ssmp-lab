@@ -18,10 +18,10 @@ START:
     MOV N3,AX ; Store the result in N3
 
     MOV AX,[SI+2] ;take the values to which SI+2 is pointing towards(First Part of First Number) and move it to AX
-    SBB AX,[SI+6] ;add contents of AX with the values to which SI+4 is pointing towards (First Part of Second Number) -SBB Subtract with Borrow
+    SBB AX,[SI+6] ;subtract contents of AX with the values to which SI+4 is pointing towards (First Part of Second Number) -SBB Subtract with Borrow
     MOV N4,AX ; Store the result in N4
 
-    JNC STOP    ;if to STOP(final part of program) if no carry (JNC-Jump No Carry)
+    JNC STOP    ;if to STOP(final part of program) if no carry/borrow (JNC-Jump No Carry)
     INC CX
 
 STOP:
