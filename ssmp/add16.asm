@@ -16,7 +16,7 @@ START:
     JNC STOP    ;if to STOP(final part of program) if no carry (JNC-Jump No Carry)
     INC CX      ;if carry then Increment CX
 STOP:
-MOV N3,AX   ;move the result from AX Register to N3
-INT 3H  ;End the Program
+    MOV N3,AX   ;move the result from AX Register to N3
+    INT 3H  ;End the Program
 CODE ENDS
 END START
