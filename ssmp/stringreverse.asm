@@ -22,14 +22,17 @@ START:
     GOTEND:
         DEC SI          ;Decrement SI, because we do need to count '$' towards total lenght of the string
         REVERSE:
-            MOV DL,[SI]
-            MOV AH,02H
-            INT 21H
-            DEC SI
-            CMP SI,OFFSET STRING1-1
-            JNE REVERSE
+            MOV DL,[SI]     ;Since SI is now at the end of string, move the current word to DL
 
-            MOV AX,4C00H
+            ;Print the Word
+            MOV AH,02H      
+            INT 21H
+
+            DEC SI      ;Decrement SI so it can point to the next word - in reverse
+            CMP SI,OFFSET STRING1-1 ;Check if the pointer SI is past the starting address of STRING1
+            JNE REVERSE     ;If not, then repeat
+
+            MOV AX,4C00H    ;End the program
             INT 21H
 CODE ENDS
 END START
