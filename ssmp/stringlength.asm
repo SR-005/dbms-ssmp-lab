@@ -1,6 +1,6 @@
 DATA SEGMENT
     MSG1 DB "STRING LENGTH IS: $"   ;Default Printing Statement
-    STRING1 DB "HELLOWORLD$"        ;String to be computed
+    STRING1 DB "HELLO$"        ;String to be computed
     LEN DB 0                        ;Length Variable
 DATA ENDS
 
@@ -16,9 +16,10 @@ START:
     CLD                 ;Reset the Direction
 
     ITERATE:
-        LODSB           ;Loads the Value at the address found in SI into AX, and auto increments SI
+        MOV AL,[SI]           ;Loads the Value at the address found in SI into AL, and auto increments SI
+        INC SI
         INC CL          ;Increment CL for each value being read
-        CMP AX,"$"      ;Checks if the value being read is '$'-Termination Character
+        CMP AL,"$"      ;Checks if the value being read is '$'-Termination Character
         JNZ ITERATE     ;If not, then repeat the Loop until it occurs
 
         DEC CL          ;If the value in '$', Decrement the CL (Length Count), because we do not need the count of '$' to be included
@@ -30,8 +31,8 @@ START:
         INT 21H
 
         MOV AL,LEN      ;Move the Final Count to AL for ASCII Convertion
-        MOV AL,09H      ;ASCII Convertion Occurs
-
+        ADD AL,30H      ;ASCII Convertion Occurs
+        
         ;Default Printing Section - Prints the Final Length
         MOV AH,02H      ;02H for Printing Numbers
         MOV DL,AL       ;Moves the Printable value to DL
