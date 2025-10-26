@@ -1,7 +1,7 @@
 DATA SEGMENT
-    ARRAY DW 1050H,2050H,3050H,5050H    ;declare the array
-    LEN EQU (($-ARRAY)/2)           ;find the array length
-    KEY DW 2050H        ;declare the key to be found
+    ARRAY DB 10H,20H,30H,50H    ;declare the array
+    LEN EQU ($-ARRAY)           ;find the array length
+    KEY DW 20H        ;declare the key to be found
     STR1 DB 'KEY FOUND $'       ;string to print if found
     STR2 DB 'KEY NOT FOUND $'   ;string to print if not found
 DATA ENDS
