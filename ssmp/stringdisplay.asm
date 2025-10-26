@@ -1,2 +1,26 @@
 DATA SEGMENT
     STRING1 DB "HELLO$"
+    LEN EQU ($-STRING1)
+DATA ENDS
+
+CODE SEGMENT
+ASSUME CS:CODE, DS:DATA
+START:
+    MOV AX, DATA
+    MOV DS, AX        ; DS must point to DATA segment
+
+    MOV SI, OFFSET STRING1
+    MOV CX, LEN
+
+PRINT_LOOP:
+    MOV AH, 02H
+    MOV DL, [SI]
+    INT 21H
+    INC SI
+    DEC CX
+    JNZ PRINT_LOOP
+
+    MOV AX, 4C00H      ; terminate program
+    INT 21H
+CODE ENDS
+END START
