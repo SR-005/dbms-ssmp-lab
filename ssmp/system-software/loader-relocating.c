@@ -116,6 +116,5 @@ int main()
         fclose(out);
         printf("\nRelocation done → check RLOUT.txt\n");
         return 0;
-
     }
 }
