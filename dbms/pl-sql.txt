@@ -1,0 +1,88 @@
+------------------------------PL-SQL BLOCK SYNTAX------------------------------
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_name VARCHAR(20):='Sreeram';
+    v_age INT := 20;
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_name);
+    DBMS_OUTPUT.PUT_LINE('Age: ' || v_age);
+
+EXCEPTION
+    .......
+
+END;
+/
+
+------------------------------CURSOR SYNTAX------------------------------
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    CURSOR cursorname IS SELECT col1,col2 FROM table WHERE condition;
+    v_col1 table.col1.%TYPE;
+    v_col2 table.col2.%TYPE;
+
+BEGIN
+    OPEN cursorname;
+
+    LOOP
+        FETCH cursorname INTO v_col1,v_col2;
+        EXIT WHEN cursorname%NOTFOUND;
+        DBMS_OUTPUT.PUT_LINE(col1 || '-' || col2);
+    END LOOP;
+
+    CLOSE cursorname
+END;
+/
+
+------------------------------PROCEDURE SYNTAX------------------------------
+
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE PROCEDURE procedure(field1 IN INT) IS 
+    v_name table.empname%TYPE;
+    v_age table.empage%TYPE;
+
+BEGIN
+    SELECT empname, empage INTO v_name,v_age FROM table WHERE condition;
+    DBMS_OUTPUT.PUT_LINE('Name: ' || v_name || 'Age: ' || v_age);
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('Employee not found!');
+
+END;
+/
+
+------------------------------FUNCTION SYNTAX------------------------------
+
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE FUNCTION function(field1 IN INT) RETURN INT IS
+    v_salary table.salary%TYPE;
+
+BEGIN
+    SELECT salary INTO v_salary FROM table WHERE condition;
+    RETURN v_salary;
+
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        RETURN NULL;
+
+END;
+/
+
+------------------------------TRIGGER SYNTAX------------------------------
+
+SET SERVEROUTPUT ON;
+
+CREATE OR REPLACE TRIGGER trigger BEFORE/AFTER INSERT/DELETE/UPDATE ON table FOR EACH ROW
+
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('New employee added: ' || :NEW.emp_name);
+
+END;
+/
